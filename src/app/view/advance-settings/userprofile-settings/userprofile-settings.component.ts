@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -7,6 +7,9 @@ import { ReplaceUserComponent } from '../replace-user/replace-user.component';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { DisableChatComponent } from '../disable-chat/disable-chat.component';
+import {MediaMatcher} from '@angular/cdk/layout';
+import { UserProfileFilterComponent } from '../user-profile-filter/user-profile-filter.component';
+import { AddNewUserComponent } from '../add-new-user/add-new-user.component';
 
 
 export interface UserData {
@@ -43,9 +46,16 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void; 
 
-  constructor(private dialog: MatDialog) {
-    // Create 100 users
+  constructor(private dialog: MatDialog,
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,) {
+      this.mobileQuery = media.matchMedia('(max-width: 1023px)');
+      this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+      this.mobileQuery.addListener(this._mobileQueryListener)
+   
+      // Create 100 users
    let user:any = [{"User Name":"Ingamar","Email":"Thoughtmix","Mobile":"25-606-2835","User Role":"Staff Scientist","Designation":"Speech Pathologist","Reporting To":"Haggish","User Status":"Hopsage","Action":"Sapien.jpeg"},
     {"User Name":"Astrid","Email":"Cogilith","Mobile":"79-995-4674","User Role":"VP Sales","Designation":"Sales Associate","Reporting To":"Tourner","User Status":"Alkali Mallow","Action":"NonMattis.png"},
     {"User Name":"Field","Email":"Skyba","Mobile":"31-331-4507","User Role":"Staff Accountant II","Designation":"Speech Pathologist","Reporting To":"Brookson","User Status":"Hyacinth Meadow Garlic","Action":"SapienVariusUt.mpeg"},
@@ -149,11 +159,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(user);
+
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
@@ -164,20 +176,22 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  openReplaceUser(){
+  
+  openReplaceUser(userdata:any){
     const dialogRef = this.dialog.open(ReplaceUserComponent, {
-      width: '450px',
-      data: { title: 'Dialog Title', message: 'Dialog Message' }
+      width: this.mobileQuery.matches? '100%':'650px',
+      data: { userdata: userdata }
+
     });
   
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
-  openResetPassword(){
+  openResetPassword(userdata:any){
     const dialogRef = this.dialog.open(ResetPasswordComponent, {
-      width: '40%',
-      data: { title: 'Dialog Title', message: 'Dialog Message' }
+      width: this.mobileQuery.matches?'100%':'40%',
+      data: { userdata: userdata }
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -186,8 +200,28 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   }
   openDisableChat(name:string){
     const dialogRef = this.dialog.open(DisableChatComponent, {
-      width: '450px',
+      width: this.mobileQuery.matches?'100%':'450px',
       data: {name:name}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  openFilter(){
+    const dialogRef = this.dialog.open(UserProfileFilterComponent, {
+      width: '50%',
+      height:'90%',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  openAddUser(){
+    const dialogRef = this.dialog.open(AddNewUserComponent, {
+      width: '50%',
+      height:'90%',
     });
   
     dialogRef.afterClosed().subscribe(result => {
