@@ -1,0 +1,105 @@
+profile-container{
+    height: 85px;
+    width: 90px;
+    background: #f2f2f2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    color: white;
+    
+}
+.text-muted{
+  font-size: 12px;
+}
+
+profile-data div{
+    margin: 0;
+    padding: 0;
+}
+
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+.right-container{
+    border-left:2px dotted #eaeaea;
+}
+.mr-left{
+    margin-left: 21%;
+}
+.mat-dialog-actions {
+    min-height: 83px !important;
+    padding: 0 23px 15px !important;
+}
+.pencil-edit{
+    position: absolute;
+    bottom: 0;
+    right: 0px;
+    transform: rotate(1deg);
+    background: white;
+    border-radius: 50%;
+    font-size: 0px;
+    padding: 3px;
+    /* margin: -4px; */
+    cursor: pointer;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+.profile-container img{
+ border-radius: 50%;
+}
+mat-card{
+    box-shadow: none !important;
+    margin: 0;
+    padding: 0;
+}
+/* .container{
+    margin: 0 5px;
+} */
+.u-name{
+ padding-left: 5px;
+}
+.pd-r{
+    padding-right: 0 !important;
+}
+.app-list{
+    padding: 3px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .more-dropdown{
+    padding: 15px; 
+  }
+
+::-webkit-scrollbar{
+    height: 0px !important; 
+    width: 5px !important;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track{
+      background: #f2f2f2!important; 
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb{
+      background:#F17E33!important; 
+      height: 10px !important;
+      width: 5px!important;
+    }
+
+
+    .box{
+      max-height: 400px; 
+     overflow-y: scroll;
+     overflow-x: hidden; 
+    }
+
+    .display{
+      display: none !important;
+    }
+
+    .myMatOptions{  position: absolute; }
+::ng-deep .cdk-overlay-pane {  transform:none !important;}

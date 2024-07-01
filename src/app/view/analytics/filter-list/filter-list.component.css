@@ -1,0 +1,91 @@
+  mat-form-field{
+   font-size: 13px;
+  }
+  .arrow-down{
+    vertical-align: middle;
+    float: right;
+    line-height: 24px;
+    color: darkgray;
+  }
+  #dropdownBasic1{
+    line-height: 23px;
+  }
+  
+  .filter-text{
+    font-size: 13px;
+    color: rgb(83 83 83);
+    padding-left: 10px;
+  }
+ 
+  .filterBy-category{
+    border: 1px solid gainsboro;
+    padding: 6px 6px 5px;
+    padding: 8px;
+    font-size: 10px;
+    width: 100%;
+    margin: 0;
+    box-shadow: none !important;
+  }
+  .filterBy-category:hover{
+    background-color: #f6f6f6;
+  }
+  
+ .main-catagory:hover{
+  background-color: #f6f6f6;
+ }
+ 
+ .op-m{
+  margin-top: -15px;
+ }
+
+li{
+  list-style: none;
+}
+ul{
+  padding-left: 0rem !important;
+}
+.s-p{
+  position: absolute !important;
+  margin-left: 15px;
+}
+.selected-category{
+  background-color: #f6f6f6;
+}
+.list-head{
+  font-weight: bold;
+}
+.col-p{
+  padding-right: 0
+}
+.suffix-icon{
+  float: right;
+}
+.br-b{
+  border-bottom: 1px solid #d5d5d5;
+  padding: 5px 0;
+}
+.filter-type-card{
+  padding: 6px 6px 5px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #d3d3d3;
+  border-right: 0;
+  box-shadow: none;
+  float: right;
+  font-size: 13px;
+  text-align: start;
+}
+select:focus{
+  outline: none;
+}
+
+.bi-arrow-down-up,.bi-calendar2-week-fill{
+  line-height: 36px;
+  color:gray;
+}
+.date-filter{
+  border-radius: 5px;
+  border: 1px solid #cdc7c7;
+}
+.w-90{
+width: 90%;
+}

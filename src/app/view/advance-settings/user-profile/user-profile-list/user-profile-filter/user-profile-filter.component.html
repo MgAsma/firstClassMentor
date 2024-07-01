@@ -1,0 +1,194 @@
+<form [formGroup]="filterForm">
+    <div class="mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Filter Users</h1></div>
+            <div class="col-1 close-icon">
+                <mat-icon mat-dialog-close>close</mat-icon>
+            </div>
+        </div>
+      </div>
+      <div class="container">
+        <mat-dialog-content class="mat-typography">
+            <div class="row">
+                <div class="col-6 col-md-6">
+                    <!-- <h3><b>Filter by Users</b></h3> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>User Role</mat-label>
+                        <mat-select  formControlName="role_id" multiple>
+                            <mat-option *ngFor="let item of allRole" [value]="item.id"   [ngClass]="[item.id === 5? 'display' : '', item.id===4 ? 'display' : '']">{{item.name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">
+                          <div *ngIf="f['role_id'].errors && f['role_id'].errors['required']">
+                              User Role Is Required
+                          </div>
+                      </mat-error>
+              
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>User Status</mat-label>
+                        <mat-select formControlName="is_active"  >
+                          <mat-option *ngFor="let status of status" [value]="status">{{status}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Designation</mat-label>
+                        <mat-select  formControlName="designation">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id"  [ngClass]="[item.id === 3? 'display' : '', item.id===4 ? 'display' : '',item.id===5? 'display':'']">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="f['designation'].invalid && f['designation'].touched">
+                        <div *ngIf="f['designation'].errors && f['designation'].errors['required']">
+                            Designation Is Required
+                        </div>
+                    </mat-error>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Select Reporting to User</mat-label>
+                        <mat-select formControlName="reporting_to_ids"  multiple>
+                          <mat-option *ngFor="let item of filteredAllUser" [value]="item.id">{{item.first_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="f['reporting_to_ids'].invalid && f['reporting_to_ids'].touched">
+                        <div *ngIf="f['reporting_to_ids'].errors && f['reporting_to_ids'].errors['required']">
+                            Reporting to User Is Required
+                        </div>
+                    </mat-error>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Level of Program</mat-label>
+                        <mat-select  formControlName="level_of_program">
+                          <mat-option *ngFor="let item of allLevel" [value]="item.id">{{item.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="f['level_of_program'].invalid && f['level_of_program'].touched">
+                        <div *ngIf="f['level_of_program'].errors && f['level_of_program'].errors['required']">
+                            Level of Program Is Required
+                        </div>
+                    </mat-error>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Department</mat-label>
+                        <mat-select formControlName="department" >
+                          <mat-option *ngFor="let item of allDepartment" [value]="item.id">{{item.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div> -->
+            <!-- <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h3><b>Filter by Dates</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="m-2" for="">Creation Date</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>From Date</mat-label>
+                                <input formControlName="created_date_time_before" (dateChange)="createdFromDate($event,'creationFrom')"  matInput [matDatepicker]="created_date_time_before">
+                                <mat-datepicker-toggle matSuffix [for]="created_date_time_before"></mat-datepicker-toggle>
+                                <mat-datepicker #created_date_time_before></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>To Date</mat-label>
+                                <input formControlName="created_date_time_after" (dateChange)="createdFromDate($event,'creationTo')" matInput [matDatepicker]="creationTo">
+                                <mat-datepicker-toggle matSuffix [for]="creationTo"></mat-datepicker-toggle>
+                                <mat-datepicker #creationTo></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="m-2" for="">Last Login Date</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>From Date</mat-label>
+                                <input formControlName="last_login_before" (dateChange)="createdFromDate($event,'loginFrom')" matInput [matDatepicker]="loginFrom">
+                                <mat-datepicker-toggle matSuffix [for]="loginFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #loginFrom></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>To Date</mat-label>
+                                <input formControlName="last_login_after"  (dateChange)="createdFromDate($event,'loginTo')" matInput [matDatepicker]="loginTo">
+                                <mat-datepicker-toggle matSuffix [for]="loginTo"></mat-datepicker-toggle>
+                                <mat-datepicker #loginTo></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="m-2" for="">Modification Date</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>From Date</mat-label>
+                                <input formControlName="updated_date_time_before" (dateChange)="createdFromDate($event,'updateFrom')" matInput [matDatepicker]="modificationFrom">
+                                <mat-datepicker-toggle matSuffix [for]="modificationFrom"></mat-datepicker-toggle>
+                                <mat-datepicker #modificationFrom></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>To Date</mat-label>
+                                <input formControlName="updated_date_time_after" (dateChange)="createdFromDate($event,'updateTo')" matInput [matDatepicker]="modificationTo">
+                                <mat-datepicker-toggle matSuffix [for]="modificationTo"></mat-datepicker-toggle>
+                                <mat-datepicker #modificationTo></mat-datepicker>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div> -->
+          
+          
+        </mat-dialog-content>
+      </div>
+    <mat-dialog-actions align="end">
+      <button class="mat-cancel" mat-button (click)="reset()" [class.cl-disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && filterForm.value['reporting_to_ids']?.length==0"  [disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && filterForm.value['reporting_to_ids']?.length==0">RESET</button>
+      <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial  [class.cl-disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && filterForm.value['reporting_to_ids']?.length==0"  [disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && filterForm.value['reporting_to_ids']?.length==0">APPLY</button>
+    </mat-dialog-actions>
+    
+    
+</form>

@@ -1,0 +1,30 @@
+label{
+    font-size: 12px;
+}
+.container{
+    /* max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden; */
+    width: 100%;
+    
+}
+.container::-webkit-scrollbar {
+    width: 12px !important;
+    }
+.card:hover{
+    cursor: pointer;
+   color:  #12416A !important;
+  font-weight: normal !important;
+  background: gainsboro !important;
+}
+
+.card:active{
+    background: #f5bd64 !important;
+}
+
+.drodownValuesCard:hover{
+    cursor: pointer;
+    color:  #12416A !important;
+   font-weight: normal !important;
+   background: gainsboro !important;
+}

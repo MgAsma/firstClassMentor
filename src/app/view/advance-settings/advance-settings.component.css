@@ -4,12 +4,7 @@ h1{
     font-size: 20px;
     color:#393939 !important;
 }
-.head-container{
-    padding: 15px 0 10px 0;
-    padding-left: 0px;
-    border-bottom: 1px solid rgb(216, 216, 216);
-    background-color: transparent !important;
-}
+
 .settings-title{
     color: #474747 !important;
     font-size: 16px;
@@ -19,6 +14,12 @@ h1{
 .col-rgt{
     border-right: 1px solid rgb(189, 189, 189);
     padding-right: 10px;
+    height: 80vh;
+}
+.col-left{
+    height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .bi-chevron-right{
     color: gray;
@@ -30,4 +31,21 @@ mat-card{
 }
 mat-card:hover{
     background: #f6f6f6;
+    cursor: pointer;
 }
+ .main-container{
+    box-shadow: none !important;
+    margin: 0 10px !important;
+}
+
+
+mat-card:hover{
+    color:  #12416A !important;
+    font-weight: normal !important;
+    background: gainsboro !important;
+}
+.active{
+    background: #f5bd64 !important;
+    /* color: ; */
+}
+

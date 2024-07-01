@@ -20,6 +20,12 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
+import {NgChartsModule } from 'ng2-charts';
+import {HttpClientModule } from '@angular/common/http';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatStepperModule} from '@angular/material/stepper';
 @NgModule({
   imports: [
     MatButtonModule,
@@ -42,7 +48,13 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FormsModule,ReactiveFormsModule,
+    MatRadioModule,
+    NgChartsModule,
+    HttpClientModule,
+    MatExpansionModule,
+    MatStepperModule
   ],
   exports: [
     MatButtonModule,
@@ -65,7 +77,14 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatRadioModule,
+    NgChartsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatExpansionModule,
+    MatStepperModule
   ]
 })
 export class MaterialModule {}
