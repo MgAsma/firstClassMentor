@@ -1,0 +1,15 @@
+mat-card{
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+
+.search-bar{
+    border-bottom: 1px solid #dfdbdb;
+    padding: 15px;
+  }
+
+  .cl-disabled{
+    opacity: 0.6;
+    pointer-events: none;
+   }

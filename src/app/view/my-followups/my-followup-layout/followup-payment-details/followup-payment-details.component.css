@@ -1,0 +1,37 @@
+mat-card{
+    box-shadow: none !important;
+    height: 90% !important;
+}
+mat-dialog-content{
+    height: 70% !important;  
+}
+
+.dlx-bx {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+  }
+  
+  .dlx-bx button {
+    margin-top: 20px; 
+  }
+   /*.mat-dialog-content .dlx-bx .col {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+  }*/
+  mat-label{
+   font-weight: bold;
+   margin: 0 auto;
+  }
+  
+
+  input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

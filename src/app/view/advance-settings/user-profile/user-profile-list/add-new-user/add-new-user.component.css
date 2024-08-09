@@ -1,0 +1,41 @@
+::-webkit-scrollbar{
+    height: 0px !important; 
+    width: 5px !important;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track{
+      background: #f2f2f2; 
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb{
+      background:#F17E33; 
+      height: 10px !important;
+      width: 5px!important;
+    }
+    .box{
+      overflow-y: scroll !important;
+      
+      /* max-height: 400px;  */
+ 
+     overflow-x: hidden; 
+     padding: 30px;
+     /* border-radius: 8px; */
+     
+   
+    }
+
+    .display{
+      display: none !important;
+    }
+
+
+    .myMatOptions{  position: absolute; }
+::ng-deep .cdk-overlay-pane {  transform:none !important;}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 10px;
+  display: flex !important;
+}

@@ -1,0 +1,19 @@
+::ng-deep .mat-dialog-content {
+    max-height: 70vh;
+}
+.header-bg{
+    background: var(--appLightColor);
+}
+.display{
+    display: none !important;
+}
+
+
+.myMatOptions{  position: absolute; }
+::ng-deep .cdk-overlay-pane {  transform:none !important;}
+
+
+.cl-disabled{
+    opacity: 0.6;
+    pointer-events: none;
+   }

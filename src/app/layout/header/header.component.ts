@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   selectedOption:any;
   searchTerm:any;
   mobileQuery: any;
+  name:any;
+  role:any;
   _mobileQueryListener: () => void;
   notification: boolean = false;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
@@ -20,6 +22,9 @@ export class HeaderComponent implements OnInit {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.name=localStorage.getItem('username');
+    this.role=localStorage.getItem('user_role')
   }
   onSearch(){}
   
@@ -29,11 +34,14 @@ export class HeaderComponent implements OnInit {
 
   quickAdd(){
     const dialogRef = this.dialog.open(QuickAddComponent, {
-      width: '60%',
+      width: '35%',
     });
+
+    dialogRef.disableClose=true
+
   
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
 

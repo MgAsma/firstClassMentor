@@ -1,0 +1,18 @@
+input:focus{
+    outline: none;
+  }
+  input{
+    width: 100%;
+    padding: 7px !important;
+    font-size: 14px !important;
+    /* border-radius: 5px;*/
+    border: 0px solid #cdc7c7; 
+    background: transparent;
+  }
+  
+  
+  
+  
+  
+  
+  

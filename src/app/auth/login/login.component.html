@@ -1,1 +1,112 @@
 
+<div class="container-fluid"  ngxUiLoaderBlurred >
+    <div class="row h-100">
+        <div class="col-sm-0 col-md-6 col-lg-6 carousal-col" >
+            <ngb-carousel
+            #carousel
+            [interval]="2000"
+            [showNavigationArrows]="false"
+            (slide)="onSlide($event)"
+            class="img-carousel"
+           >
+          
+            <ng-template ngbSlide *ngFor="let img of myImages; index as i" >      
+                <div class="carousel-caption">
+                </div>
+             
+                <a  target="_blank" rel="nofollow noopener noreferrer">
+                    <div class="picsum-img-wrapper">  
+                        <img [src]="img" alt="" style="width: 100%;height: 100%; border-radius: 25px;" />
+                    </div>
+                </a>
+            </ng-template>
+        </ngb-carousel>
+        
+        <hr />
+        </div>
+        <div class="col-sm-12 col-md-6 col-6 m-auto" >
+            <div class="container">
+                
+                            <mat-card class="formContainer">
+                             <div class="d-flex align-items-center mb-3" >
+                                <img src="https://firstclassmentor.com/wp-content/uploads/2023/06/Firstclassmentor-final-logo-01-4.png" width="140"  class="logo-tag image-fluid"/>
+                             </div>
+                             <div class="inner-container">
+                                <div class="row ">
+                                    <div class="col-12 text-center">
+                                        <h4 class="" style="letter-spacing: 2px;">Login</h4>
+                                    </div>
+                                </div>
+                               <form [formGroup]="loginForm" (ngSubmit)="login()">
+                                <div class="row">
+                                    <div class="col-12 mb-2">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Email / Phone Number</mat-label>
+                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email_or_phone" required > 
+                                            <mat-error class="error-msg mb-3" *ngIf="f['email_or_phone'].invalid && f['email_or_phone'].touched">
+                                                <div *ngIf="loginForm.get('email_or_phone')?.hasError('phoneOrEmail')" class="error-msg mb-3">
+                                                  Invalid Email/Mobile Number
+                                                </div>
+                                                <div *ngIf="loginForm.get('email_or_phone')?.hasError('required')">Email/Mobile Number Is Required</div>
+                                              </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Password</mat-label>
+                                            <input matInput appFormSpace type="password" formControlName="password" placeholder="Enter Your Password" [type]="hidePassword ? 'password' : 'text'" required >
+                                            <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                                              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="f['password'].invalid && f['password'].touched">
+                                                <div *ngIf="f['password'].errors && f['password'].errors['required']">
+                                                    Password Is Required
+                                                </div>
+                                                <div *ngIf="f['password'].errors && f['password'].errors['pattern']">
+                                                    Password Must Be At Least 8 Characters Long, One Uppercase Letter, One Special Character,One Number
+                                                </div>
+                                            </mat-error>
+                                          </mat-form-field>
+                                    </div>
+                                    <div class="col-12">
+                                        <a><div class="text-end forgot-pass" (click)="goToForgotPassword()">Update/Reset Password?</div></a>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <mat-checkbox>Remember Me</mat-checkbox>
+                                </div>
+
+                                <div class="col-12 my-4">
+                                    <button type="submit" mat-button class="appCoColor fw-bold" >LOGIN</button>
+                                </div>
+
+                                <h6 class="" style="color:  #12416A ;">FOLLOW US </h6>
+
+                                <div class="row d-flex justify-content-center" style="color:  #12416A !important ;">
+                                    <div class="col-1" title="Facebook">
+                                        <a  href="https://www.facebook.com/firstclassmentor2009/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0" target="_blank"><i class="bi bi-facebook"></i></a>
+                                        
+                                    </div>
+                                    <div class="col-1" title="Instagram">
+                                       <a href="https://www.instagram.com/firstclassmentor2009/" target="_blank"> <i class="bi bi-instagram"></i></a>
+                                    </div>
+                                    <div class="col-1" title="Linkedin">
+                                       <a href="https://www.linkedin.com/company/firstclass-mentor/" target="_blank"><i class="bi bi-linkedin"></i></a> 
+                                    </div>
+                                    <!-- <div class="col-1" title="Twitter">
+                                        <i class="bi bi-twitter-x"></i>
+                                    </div> -->
+                                   
+                                </div>
+                                  
+                               </form>    
+                             </div>
+                        </mat-card>
+                    </div>
+                
+            
+        </div>
+    </div>
+  
+</div>
+

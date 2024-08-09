@@ -3,8 +3,57 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "./assets/table.css";
 @import "./assets/scroll.css";
-/* @import "@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+@import "./assets/mat-dialog.css";
+@import "./assets/querylist.css";
+@import "./assets/mat-form.css";
+@import "./assets/datepicker.css";
+@import "./assets/add-new-lead.css";
+@import "./assets/lead-card.css";
 @import "./assets/global.css";
 
+input[type="search"]::-webkit-search-cancel-button:hover{
+   cursor:pointer;
+  }
 
 
+
+  @font-face {
+   font-family: 'Poppins';
+   src: url('./assets/fonts/Poppins-Regular.ttf');
+  }
+
+  
+:root{
+   --primary-font:"Poppins"
+}
+
+div,span{
+   font-family: 'Poppins' !important;
+   
+}
+
+
+textarea{
+   outline: none !important;
+}
+
+/* div{
+   font-size: 12px;
+} */
+
+.layout-h{
+   height: 80vh;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+
+.card{
+   font-size: 13px !important;
+}
+
+.dropdown-menu.show{
+   position: absolute;
+   inset: 0px auto auto 0px;
+   margin: 0px;
+   transform: translate(-50%, 0px) !important;
+}

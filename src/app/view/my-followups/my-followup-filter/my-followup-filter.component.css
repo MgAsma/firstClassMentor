@@ -1,0 +1,17 @@
+mat-card{
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+
+
+.cl-disabled{
+    opacity: 0.6;
+    pointer-events: none;
+   }
+
+
+   .search-bar{
+    border-bottom: 1px solid #dfdbdb;
+    padding: 15px;
+  }

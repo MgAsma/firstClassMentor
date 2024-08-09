@@ -1,0 +1,22 @@
+
+<div class="row" title="Logout">
+	<div class="col">
+		<div ngbDropdown class="d-inline-block">
+               <button mat-mini-fab  id="dropdownBasic1"  ngbDropdownToggle (click)="openNotification()" aria-label="Example icon button with a menu icon">
+                <mat-icon class=" mat-icon" >
+                    {{ initials | uppercase }}
+                </mat-icon>
+           
+
+                </button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="p-0" style="cursor: pointer;">
+                <div class="notify-container">
+                    <ul>
+                        <li>
+                            <div class="text-center notify-popup-title primaryColor" (click)="logOut()"> Logout </div>
+                        </li>      
+                    </ul>
+                </div>
+			</div>
+		</div>
+	</div>

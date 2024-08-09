@@ -1,6 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/app/service/API/api.service';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { CommonServiceService } from 'src/app/service/common-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-quick-add',
@@ -10,67 +16,186 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class QuickAddComponent implements OnInit {
   quickAddForm!: FormGroup;
 
-  channels: string[] = ['Channel 1', 'Channel 2', 'Channel 3'];
-  sources: string[] = ['Source 1', 'Source 2', 'Source 3'];
-  campaigns: string[] = ['Campaign 1', 'Campaign 2', 'Campaign 3'];
-  mediums: string[] = ['Medium 1', 'Medium 2', 'Medium 3'];
-  levels: string[] = ['Level 1', 'Level 2', 'Level 3'];
-  departments: string[] = ['Department 1', 'Department 2', 'Department 3'];
-  courses: string[] = ['Course 1', 'Course 2', 'Course 3'];
+  channels:any = [];
+  sources:any = [];
+  campaigns:any = [];
+  mediums:any = [];
+  levels:any = [];
+  departments:any = [];
+  courses:any = [];
+  referredTo: any;
+  courseOptions: any = [];
+  streamList: any;
+  userId: any;
 
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<QuickAddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private api:ApiService,
+    private _baseService:BaseServiceService,
+    private _commonService:CommonServiceService,
+    private _addLeadEmitter:AddLeadEmitterService,
+    private _datePipe:DatePipe) {
+      this.userId = localStorage.getItem('user_id')
+    }
 
   ngOnInit() {
+    this.dropDownList()
+    this.initForm()
+  }
+  initForm(){
     this.quickAddForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      channel: [''],
-      source: ['', Validators.required],
-      campaign: [''],
-      medium: [''],
-      level: ['', Validators.required],
-      department: ['', Validators.required],
-      course: ['', Validators.required],
-      welcomeEmail:[''],
-      welcomeSms:[]
+      firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
+      email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
+      mobile:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
+      source: ['', [Validators.required]],
+      courseLookingfor:[''],
+      course: ['', [Validators.required]],
+      counsellor:['',[Validators.required]]
     });
   }
+  dropDownList(){
+    this.getChannel()
+    this.getSource()
+    this.getCourse()
+    this.getCounselor()
+    this.getStream()
+  }
+  getCourse(){
+    this.api.getAllCourse().subscribe((res:any)=>{
+      if(res){
+        this.courseOptions = res;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+        
+      })
+   
+  }
+  getChannel(){
+    this.api.getAllChannel().subscribe((resp:any)=>{
+      if(resp.results){
+        this.channels= resp.results;
+        //console.log(this.channels,"this.newChannelOptions")
+      }
+      else{
+        this.api.showError('ERROR')
+      }  
+    },(error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+      
+    }
 
-  clearSource() {
-    this.quickAddForm.get('source')?.setValue('');
+    )
   }
-  
-  clearCampaign() {
-    this.quickAddForm.get('campaign')?.setValue('');
+  getSource(){
+    this.api.getAllSource().subscribe((res:any)=>{
+     if(res.results){
+      this.sources = res.results
+     }
+     else{
+      this.api.showError('ERROR')
+     }
+    },(error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+      
+    })
   }
-  
-  clearMedium() {
-    this.quickAddForm.get('medium')?.setValue('');
+  getStream(){
+    this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
+    if(resp){
+     this.streamList = resp
+    } 
+    },(error:any)=>{
+      //console.log(error);
+      
+    }
+
+    )
   }
-  
-  clearLevel() {
-    this.quickAddForm.get('level')?.setValue('');
+ 
+  getCounselor(){
+    this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+      if(res.results){
+      this.referredTo = res.results
+      }
+    },((error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+    }))
   }
-  
-  clearDepartment() {
-    this.quickAddForm.get('department')?.setValue('');
+
+ 
+  clearSelectField(fieldName: string) {
+    this.quickAddForm.get(fieldName)?.reset();
   }
-  
-  clearCourse() {
-    this.quickAddForm.get('course')?.setValue('');
-  }
-  clearChannel(){
-    this.quickAddForm.get('channel')?.setValue('');
-  }
-  onSubmit() {
-    if (this.quickAddForm.valid) {
-      // Form is valid, perform submission logic here
-    } else {
-      // Form is invalid, display error messages
-      this.quickAddForm.markAllAsTouched();
+  onSubmit(){
+    let f = this.quickAddForm.value
+   
+    let data:any ={
+      first_name: f['firstName'],
+      last_name: "",
+      email: f['email'] || null,
+      mobile_number:f['mobile'] || null,
+      date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
+      alternate_mobile_number: null,
+      role: 5,
+      created_by: this.userId,
+      refered_to: f['counsellor'],
+      location:  null,
+      pincode: f['pincode'] || null,
+      country:null,
+      state: null,
+      city: null,
+      zone:null,
+      reference_name:null,
+      reference_mobile_number:null,
+      father_name:null,
+      father_occupation:null,
+      father_mobile_number:null,
+      tenth_per: null,
+      twelfth_per: null,
+      degree_per: null,
+      stream: f["course"],
+      others: null,
+      enterance_exam: null,
+      course_looking_for: f["courseLookingfor"],
+      lead_list_status:null,
+      lead_list_substatus: null,
+      counselled_by:null,
+      lead_stage: null,
+      source: f['source'],
+      preferance_college_and_location: 
+              {
+                preferred_college1:null,
+                preferred_college2: null,
+                preferred_location1:null,
+                preferred_location2: null
+              },
+      note_name:null,
+      created_note_remark_by:'',
+      remark_name:null
+    }
+    if(this.quickAddForm.invalid){
+      this.quickAddForm.markAllAsTouched()
+      this.api.showError('Please Fill The Mandatory Fields')
+    }
+    else{
+      this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
+        if(res){
+          // this.addLead.emit('ADD')
+          this.api.showSuccess(res.message)
+          this.dialogRef.close('yes');
+          this._addLeadEmitter.triggerGet();
+        }
+        else{
+          this.api.showError("ERROR !")
+        }
+      },((error:any)=>{
+        this.api.showError(error?.error.message)
+      }))
     }
   }
-
 }

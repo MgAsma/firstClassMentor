@@ -1,0 +1,297 @@
+<!-- <div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col my-3"><h1 mat-dialog-title>Leadlist Permissions</h1></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Edit Lead</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.edit_lead"
+      [(ngModel)]="leadListPermissions.edit_lead"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>View History </label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.view_history"
+      [(ngModel)]="leadListPermissions.view_history"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Add FolloUp</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.add_followup"
+      [(ngModel)]="leadListPermissions.add_followup"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Add Note</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.add_note"
+      [(ngModel)]="leadListPermissions.add_note"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Delete Lead</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.delete_lead"
+      [(ngModel)]="leadListPermissions.delete_lead"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Payment Details</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.payment_details"
+      [(ngModel)]="leadListPermissions.payment_details"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Download Leads</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.download_leads"
+      [(ngModel)]="leadListPermissions.download_leads"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Email</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.email"
+      [(ngModel)]="leadListPermissions.email"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Whatsapp Template Settings</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.whatsapp"
+      [(ngModel)]="leadListPermissions.whatsapp"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>SMS Template Settings</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.sms"
+      [(ngModel)]="leadListPermissions.sms"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row my-3">
+  <div class="col-sm-4 col-md-4 col-lg-5 text-left">
+    <button
+      (click)="openEdit(leadListPermissions.id)"
+      class="mat-disable"
+      mat-button
+      cdkFocusInitial
+    >
+      Edit
+    </button>
+  </div>
+</div> -->
+
+
+
+<form [formGroup]="editForm">
+  <div class="mat-dialog-header">
+      <div class="row">
+          <div class="col"><h1 mat-dialog-title>Edit Leadlist Permissions</h1></div>
+          <div class="col-1 close-icon">
+              <!-- <mat-icon mat-dialog-close>close</mat-icon> -->
+          </div>
+      </div>
+    </div>
+    <div class="container">
+      <mat-dialog-content class="mat-typography">
+        <div class="row">
+          <div class="col-12 col-md-12">
+           
+              <mat-checkbox formControlName="edit_lead" aria-checked="edit_lead">Edit Lead</mat-checkbox>
+              
+            <mat-error *ngIf="f['edit_lead'].invalid && f['edit_lead'].touched">
+              <div *ngIf="f['edit_lead'].errors && f['edit_lead'].errors['required']">
+                   Edit Lead Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+            
+              <mat-checkbox formControlName="view_history" aria-checked="view_history">View History </mat-checkbox>
+              
+           
+            <mat-error *ngIf="f['view_history'].invalid && f['view_history'].touched">
+              <div *ngIf="f['view_history'].errors && f['view_history'].errors['required']">
+                  View History Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="add_followup" aria-checked="add_followup">Add Follow Up</mat-checkbox>
+            <mat-error *ngIf="f['add_followup'].invalid && f['add_followup'].touched">
+              <div *ngIf="f['add_followup'].errors && f['add_followup'].errors['required']">
+                  Add Follow Up  Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="add_note" aria-checked="add_note">Add Note</mat-checkbox>
+            <mat-error *ngIf="f['add_note'].invalid && f['add_note'].touched">
+              <div *ngIf="f['add_note'].errors && f['add_note'].errors['required']">
+                   Add Note Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="delete_lead" aria-checked="delete_lead">Delete Lead</mat-checkbox>
+            <mat-error *ngIf="f['delete_lead'].invalid && f['delete_lead'].touched">
+              <div *ngIf="f['delete_lead'].errors && f['delete_lead'].errors['required']">
+                   Delete lead Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="payment_details" aria-checked="payment_details">Payment Details</mat-checkbox>
+            <mat-error *ngIf="f['payment_details'].invalid && f['payment_details'].touched">
+              <div *ngIf="f['payment_details'].errors && f['payment_details'].errors['required']">
+                   Payment Details Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="download_leads" aria-checked="download_leads">Download Leads</mat-checkbox>
+            <mat-error *ngIf="f['download_leads'].invalid && f['download_leads'].touched">
+              <div *ngIf="f['download_leads'].errors && f['download_leads'].errors['required']">
+                   Download Leads Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="email" aria-checked="email">Email</mat-checkbox>
+            <mat-error *ngIf="f['email'].invalid && f['email'].touched">
+              <div *ngIf="f['email'].errors && f['email'].errors['required']">
+                  Email Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="whatsapp" aria-checked="whatsapp">Whatsapp</mat-checkbox>
+            <mat-error *ngIf="f['whatsapp'].invalid && f['whatsapp'].touched">
+              <div *ngIf="f['whatsapp'].errors && f['whatsapp'].errors['required']">
+                  Whatsapp  Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+
+
+      <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="sms" aria-checked="sms">SMS</mat-checkbox>
+            <mat-error *ngIf="f['sms'].invalid && f['sms'].touched">
+              <div *ngIf="f['sms'].errors && f['sms'].errors['required']">
+                 SMS Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+     
+     
+      
+
+      
+      </mat-dialog-content>
+    </div>
+  <mat-dialog-actions align="end">
+    <!-- <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button> -->
+    <button class="mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
+  </mat-dialog-actions>
+  
+  
+</form>

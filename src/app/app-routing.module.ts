@@ -1,15 +1,29 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { PaymentButtonComponent } from './payment-button/payment-button.component';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+
+import { ActivateChildGuard } from './service/auth-guard/activate-child.guard';
 
 const routes: Routes = [
+  
   {
     path: '', 
-    redirectTo: 'advancesettings', 
+    redirectTo: 'login', 
     pathMatch: 'full', 
   },
-  { path: '', component: LayoutComponent},
-  { path: '', component: LayoutComponent,children:[
+  {
+    path: 'login', 
+    component:LoginComponent
+  },
+ 
+  { path: '', component: LayoutComponent },
+  { path: '', component: LayoutComponent,canActivateChild:[ActivateChildGuard],children:[
     {
       path:'analytics',loadChildren:()=>import('./view/analytics/analytics.module').then(m=>m.AnalyticsModule)
     },
@@ -21,6 +35,11 @@ const routes: Routes = [
     },
     {
       path:'leadList',loadChildren:()=>import('./view/lead-list/lead-list.module').then(m=>m.LeadListModule)
+    },
+
+
+    {
+      path:'customer',loadChildren:()=>import('./view/customer/customer.module').then(m=>m.CustomerModule)
     },
     {
       path:'applicationList',loadChildren:()=>import('./view/application-list/application-list.module').then(m=>m.ApplicationListModule)
@@ -60,9 +79,36 @@ const routes: Routes = [
     },
     {
       path:'advancesettings',loadChildren:()=>import('./view/advance-settings/advance-settings.module').then(m=>m.AdvanceSettingsModule)
-    }
+    },
+    {
+      path:'report', loadChildren:()=>import('./view/report/report.module').then(m =>m.ReportModule)
+    },
+    {
+      path:'request-report', loadChildren:()=>import('./view/request-report/request-report.module').then(m =>m.RequestReportModule)
+    },
+    {
+      path: 'transaction', 
+      component:TransactionDetailsComponent
+    },
   ]
   },
+  {
+    path: 'forgotPass', 
+    component:ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password/:id', 
+    component:ResetPasswordComponent
+  },
+  {
+    path: 'update-lead', 
+    component:UpdateProfileComponent
+  },
+  {
+    path: 'pay',
+    component:PaymentButtonComponent
+  },
+  
  ];
 
 @NgModule({
