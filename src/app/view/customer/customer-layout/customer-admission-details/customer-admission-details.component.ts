@@ -23,6 +23,7 @@ export class CustomerAdmissionDetailsComponent implements OnInit {
   selectedImage: any;
   type = true;
   selectedImageFormat:any;
+  fileUrl2: string | ArrayBuffer | null | undefined;
   
   constructor(
     private fb:FormBuilder,
@@ -87,17 +88,20 @@ export class CustomerAdmissionDetailsComponent implements OnInit {
   get f() {
     return this.admissionDetailsForm.controls;
   }
-  onSubmit(){
+  async onSubmit(){
     if(this.admissionDetailsForm.invalid){
       this.admissionDetailsForm.markAllAsTouched()
     }else{
+      console.log(this.fileUrl)
+      let data = {}
+      let selectedImage:any;
       const formData = this.admissionDetailsForm.value
-      const data = {
+      if(this.fileUrl){
+      data = {
         lead: this.data.user_data.id,
         application_number: formData.applicationNumber,
         application_soft_copy: this.fileUrl
       }
-      
       this._baseService.postData(environment.admission_details,data).subscribe((resp:any)=>{
         if(resp){
           this.api.showSuccess(resp.message)
@@ -108,37 +112,121 @@ export class CustomerAdmissionDetailsComponent implements OnInit {
       },(error:any)=>{
         this.api.showError(error.error.message)
       })
+    }else {
+      
+      //console.log(this.fileUrl2,selectedImage,formData.leadUpload,"FILE@")
+
+       // Handle the case where the event is a URL
+       this.convertUrlToBase64(formData.leadUpload).then(base64String => {
+       
+        this.url = event;  // URL itself
+        this.fileUrl2 = base64String;
+        this.admissionDetailsForm.patchValue({ leadUpload: this.url });
+        data = {
+          lead: this.data.user_data.id,
+          application_number: formData.applicationNumber,
+          application_soft_copy: this.fileUrl2
+        }
+        this._baseService.postData(environment.admission_details,data).subscribe((resp:any)=>{
+          if(resp){
+            this.api.showSuccess(resp.message)
+            sessionStorage.setItem('admissionDetails','done')
+            this.emit.customerFiltertriggerGet();
+            this.dialogRef.close()
+          }
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+        })
+      }).catch(error => {
+        console.error('Error converting URL to base64:', error);
+      });
+      
+    }
+    
     }
   }
+  
   closePopup(){
     this.dialogRef.close()
   }
-  onFileSelected(event:any){
-    if(event){
-      this.uploadFile=  event.target.files[0];
-        const fileExtension = this.uploadFile.name.split('.').pop().toLowerCase();
+  // onFileSelected(event:any){
+  //   if(event){
+  //     this.uploadFile=  event.target.files[0];
+  //       const fileExtension = this.uploadFile.name.split('.').pop().toLowerCase();
         
-        // Check if the file extension is jpg, jpeg, png, or pdf
-        if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
-            this.selectedImageFormat = 'image';
-        } else if (fileExtension === 'pdf') {
-            this.selectedImageFormat = 'pdf';
-        } else {
-            // Handle other file formats as needed
-            this.selectedImageFormat = 'unknown';
-        }
-      if(event.target.files && event.target.files[0]){
-        const reader =new FileReader();
-        reader.readAsDataURL(event.target.files[0])
-        reader.onload = (event:any)=>{
-          this.url = event.target.result;
-          this.fileUrl = reader.result
-         this.admissionDetailsForm.patchValue({leadUpload:this.url})
-        }
-      }
-    }
+  //       // Check if the file extension is jpg, jpeg, png, or pdf
+  //       if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
+  //           this.selectedImageFormat = 'image';
+  //       } else if (fileExtension === 'pdf') {
+  //           this.selectedImageFormat = 'pdf';
+  //       } else {
+  //           // Handle other file formats as needed
+  //           this.selectedImageFormat = 'unknown';
+  //       }
+  //     if(event.target.files && event.target.files[0]){
+  //       const reader =new FileReader();
+  //       reader.readAsDataURL(event.target.files[0])
+  //       reader.onload = (event:any)=>{
+  //         this.url = event.target.result;
+  //         this.fileUrl = reader.result
+  //        this.admissionDetailsForm.patchValue({leadUpload:this.url})
+  //       }
+  //     }
+  //   }else{
+
+  //   }
    
+  // }
+  onFileSelected(event: any) {
+    if (event && event.target && event.target.files && event.target.files[0]) {
+      // Handle the case where the event is a file input
+      this.uploadFile = event.target.files[0];
+      const fileExtension = this.uploadFile.name.split('.').pop()?.toLowerCase();
+  
+      // Check if the file extension is jpg, jpeg, png, or pdf
+      if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
+        this.selectedImageFormat = 'image';
+      } else if (fileExtension === 'pdf') {
+        this.selectedImageFormat = 'pdf';
+      } else {
+        this.selectedImageFormat = 'unknown';
+      }
+  
+      const reader = new FileReader();
+      reader.readAsDataURL(this.uploadFile);
+      reader.onload = (loadEvent: any) => {
+        this.url = loadEvent.target.result;
+        this.fileUrl = reader.result as string;
+        this.admissionDetailsForm.patchValue({ leadUpload: this.url });
+      };
+    } else  {
+     
+    }
   }
+  
+  // Helper function to convert a URL to a base64 string
+  convertUrlToBase64(url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.responseType = "blob";
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(xhr.response);
+        } else {
+          reject(new Error("Failed to load image from URL"));
+        }
+      };
+      xhr.onerror = reject;
+      xhr.send();
+    });
+  }
+  
   downloadImage() {
     const imageUrl = this.f['leadUpload'].value || this.selectedImage;
 
@@ -157,6 +245,7 @@ export class CustomerAdmissionDetailsComponent implements OnInit {
   }
   getFileFormatFromUrl(url: any) {
     // Get the file extension from the URL
+    if(url){
     const fileExtension = url.split('.').pop().toLowerCase();
     
     // Check if the file extension is jpg, jpeg, png, or pdf
@@ -168,6 +257,7 @@ export class CustomerAdmissionDetailsComponent implements OnInit {
         // Handle other file formats as needed
         this.selectedImageFormat = 'unknown';
     }
+  }
 }
 
 }
