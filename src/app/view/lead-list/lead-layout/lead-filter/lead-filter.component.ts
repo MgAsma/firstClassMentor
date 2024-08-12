@@ -218,7 +218,7 @@ queryItems: any;
       // if(this.filterLead.value.counsellor_id){
       //   this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation&admin_id=${this.user_id}`
       // }else{
-        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation`;
+        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
       //}
      
     }
