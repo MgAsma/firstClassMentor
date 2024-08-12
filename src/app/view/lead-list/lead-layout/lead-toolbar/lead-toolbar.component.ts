@@ -251,9 +251,6 @@ export class LeadToolbarComponent implements OnInit {
   if(this.selectedLeads.length >0 ){
     this.submitted = true
     this.exportReference = `${environment.export_leads}?ids=${this.selectedLeads}`
-    setTimeout(() => {
-      this.addEventEmitter.triggerGet() 
-    },2000);
     
   }else{
     if(!this.submitted){
